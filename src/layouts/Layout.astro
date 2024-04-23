@@ -1,0 +1,87 @@
+---
+import Footer from './Footer.astro';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang='en'>
+	<head>
+		<meta charset='UTF-8' />
+		<meta name='description' content='Astro description' />
+		<meta name='viewport' content='width=device-width' />
+		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+		<meta name='generator' content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<slot />
+		<Footer />
+	</body>
+</html>
+<style is:global>
+	:root {
+		color-scheme: dark light;
+
+		--bg-light: 255, 255, 255;
+		--bg-dark: 0, 0, 0;
+
+		--text-light: 0, 0, 0;
+		--text-dark: 255, 255, 255;
+
+		--link-light: 0, 0, 255;
+		--link-dark: 0, 0, 255;
+
+		--primary-light: 247, 95, 49;
+		--primary-dark: 227, 60, 38;
+
+		--sky-light: 0, 208, 255;
+		--sky-dark: 34, 0, 120;
+	}
+
+	:root[data-theme='light'] {
+		color-scheme: light;
+	}
+
+	:root[data-theme='dark'] {
+		color-scheme: dark;
+	}
+
+	:root {
+		font-family: system-ui, sans-serif;
+		background: light-dark(rgb(var(--bg-light)), rgb(var(--bg-dark)));
+	}
+
+	body {
+		display: flex;
+		flex-direction: column;
+		margin: 0;
+		min-height: 100vh;
+		color: light-dark(rgb(var(--text-light)), rgb(var(--text-dark)))
+	}
+
+	a {
+		color: light-dark(rgb(var(--link-light)), rgb(var(--link-dark)));
+		text-decoration: none;
+
+		&:visited {
+
+		}
+	}
+
+	code {
+		font-family:
+			Menlo,
+			Monaco,
+			Lucida Console,
+			Liberation Mono,
+			DejaVu Sans Mono,
+			Bitstream Vera Sans Mono,
+			Courier New,
+			monospace;
+	}
+</style>

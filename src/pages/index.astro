@@ -1,0 +1,98 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Card from '@/components/Card.astro';
+import Flex from '@/components/Flex.astro';
+---
+
+<Layout title='SOAR'>
+	<main>
+		<Flex class='hero' direction='column' align='center'>
+			<h1>Are you ready to <span class='text-gradient'>SOAR</span>?</h1>
+			<img class='ferris' src='/ferris-gesture.svg' height='100px' />
+		</Flex>
+	</main>
+</Layout>
+
+<style>
+	main {
+		font-size: 20px;
+		min-height: 100%;
+	}
+
+	.hero {
+		padding: 1rem;
+		line-height: 1.6;
+		background: light-dark(rgb(var(--sky-light)), rgb(var(--sky-dark)));
+		overflow: hidden;
+
+		& > h1 {
+			font-size: 4rem;
+			font-weight: 700;
+			line-height: 1;
+			text-align: center;
+			margin-bottom: 1em;
+		}
+	}
+
+	@keyframes peek {
+		0% {
+			top: 96px;
+		}
+		50% {
+			top: 60px;
+		}
+		100% {
+			top: 96px;
+		}
+	}
+
+	.ferris {
+		position: relative;
+		top: 96px;
+		animation: peek 2s ease-in-out 0.5s;
+		transition: top 0.5s ease-in-out;
+
+		&:hover {
+			top: 50px;
+		}
+	}
+
+	.text-gradient {
+		background-image: linear-gradient(
+			45deg,
+			rgb(var(--primary-dark)),
+			rgb(var(--primary-light))
+		);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 100%;
+		background-position: 0%;
+	}
+
+	.instructions {
+		margin-bottom: 2rem;
+		border: 1px solid rgba(var(--accent-light), 25%);
+		padding: 1.5rem;
+		border-radius: 8px;
+	}
+
+	.instructions code {
+		font-size: 0.8em;
+		font-weight: bold;
+		background: rgba(var(--accent-light), 12%);
+		color: rgb(var(--accent-light));
+		border-radius: 4px;
+		padding: 0.3em 0.4em;
+	}
+
+	.instructions strong {
+		color: rgb(var(--accent-light));
+	}
+
+	.link-card-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+		gap: 2rem;
+		padding: 0;
+	}
+</style>
