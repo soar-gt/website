@@ -1,0 +1,253 @@
+---
+import Flex from '@/components/Flex.astro';
+import { Icon } from 'astro-icon/components';
+---
+
+<Flex class='hero' direction='column'>
+	<Flex justify='center' align='center' gap='4rem'>
+		<div style={{ maxWidth: '350px' }}>
+			<p class='we-are'>We Are</p>
+
+			<h1 style={{ margin: '0.25rem 0 0 0', textAlign: 'left' }}>
+				<span class='soar'>S</span>tudents
+			</h1>
+
+			<h1 style={{ margin: 0, textAlign: 'left' }}>
+				<span class='soar'>O</span>rganizing<span class='de-empahsis'> for the</span>
+			</h1>
+
+			<h1 style={{ margin: 0, textAlign: 'left' }}>
+				<span class='soar'>A</span>doption<span class='de-empahsis'> of</span>
+			</h1>
+
+			<h1 style={{ margin: '0 0 0.25rem 0', textAlign: 'left' }}>
+				<span class='soar'>R</span>ust
+			</h1>
+
+			<p class='description'>
+				The premier community of Rust enthusiasts on Georgia Tech's campus. We build, teach,
+				and love rust.
+			</p>
+		</div>
+		<Flex justify='center'>
+			<a
+				href='https://github.com/soar-gt/website'
+				class='construction'
+				target='_blank'
+				style="background-image: url('/construction.png');"
+			>
+				<h3>Building On GitHub</h3>
+			</a>
+		</Flex>
+	</Flex>
+	<div class='ferris'>
+		<Flex direction='column' align='center' gap={0}>
+			<p style={{ margin: 0 }}>Say Hi</p>
+			<Icon name='tabler:chevron-down' size={16} />
+		</Flex>
+		<img src='/ferris-gesture.svg' height='100px' />
+	</div>
+</Flex>
+
+<style>
+	@keyframes bob {
+		from {
+			top: 0px;
+		}
+		to {
+			top: -8px;
+		}
+	}
+
+	.hero {
+		padding: 2rem 1rem 1rem 1rem;
+		background-color: rgb(247, 95, 49);
+		background-image: linear-gradient(
+			90deg,
+			rgb(var(--primary-dark)) 0%,
+			rgb(247, 95, 49) 100%
+		);
+		overflow: hidden;
+		box-shadow: inset 0px -32px 64px -32px rgba(0, 0, 0, 0.5);
+
+		& > div {
+			@media screen and (min-width: 630px) {
+				padding: 0rem 2rem;
+			}
+		}
+
+		& h1 {
+			font-size: 2.6rem;
+			font-weight: 700;
+			line-height: 1;
+			text-align: center;
+			margin-bottom: 1em;
+			color: white;
+
+			@media screen and (max-width: 600px) {
+				font-size: 2rem;
+			}
+
+			& > span.de-empahsis {
+				font-size: 1.75rem;
+			}
+		}
+	}
+
+	.we-are {
+		font-style: italic;
+		font-size: 1.5rem;
+		font-weight: 500;
+		margin: 0;
+
+		@media screen and (max-width: 600px) {
+			font-size: 1.3rem;
+		}
+	}
+
+	.description {
+		font-size: 1.3rem;
+		margin: 0;
+
+		@media screen and (max-width: 600px) {
+			font-size: 1.3rem;
+		}
+	}
+
+	.construction {
+		border: 6px solid black;
+		background-color: black;
+		background-size: cover;
+		background-repeat: no-repeat;
+		border-radius: 1rem;
+		padding: 1rem;
+		box-shadow: 0px 0px 64px 4px rgba(0, 0, 0, 0.2);
+
+		&:hover {
+			transform: rotate(1deg);
+		}
+
+		& > h3 {
+			margin: 0;
+			color: white;
+		}
+	}
+
+	@keyframes peek {
+		from {
+			top: 102px;
+			transform: rotate(0deg);
+		}
+		to {
+			top: 60px;
+			transform: rotate(7deg);
+		}
+	}
+
+	@keyframes peek-text {
+		0% {
+			top: 108px;
+			opacity: 0;
+		}
+		50% {
+			top: 60px;
+			opacity: 0;
+		}
+		100% {
+			top: 108px;
+			opacity: 1;
+		}
+	}
+
+	@keyframes bob-text {
+		from {
+			top: 108px;
+		}
+		to {
+			top: 96px;
+		}
+	}
+
+	.ferris {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		/* Say Hi Label */
+		& > div {
+			position: relative;
+			opacity: 1;
+			top: 108px;
+			transition: opacity 0.5s ease;
+			font-weight: 700;
+			color: white;
+			fill: white;
+
+			@media (prefers-reduced-motion: no-preference) {
+				animation:
+					peek-text 2s ease-in-out 0.5s 1 alternate,
+					bob-text 1s ease-in-out 3s infinite alternate;
+			}
+
+			&:has(+ img:hover) {
+				opacity: 0;
+			}
+		}
+
+		/* Ferris SVG */
+		& > img {
+			position: relative;
+			top: 102px;
+			filter: drop-shadow(0px 0px 24px rgba(0, 0, 0, 0.3));
+			transition:
+				top 0.5s ease-in-out,
+				transform 0.5s ease-in-out;
+
+			@media (prefers-reduced-motion: no-preference) {
+				animation: peek 1s ease-in-out 0.5s 2 alternate;
+			}
+
+			&:hover {
+				top: 50px;
+				transform: rotate(4deg);
+			}
+		}
+	}
+
+	.soar {
+		background-image: linear-gradient(45deg, rgb(54, 205, 255) 0%, rgb(152, 229, 255) 70%);
+		background-color: rgb(3, 190, 252);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 100%;
+		background-position: 0%;
+		text-shadow: 0px 0px 64px rgba(152, 229, 255, 0.7);
+	}
+
+	.instructions {
+		margin-bottom: 2rem;
+		border: 1px solid rgba(var(--accent-light), 25%);
+		padding: 1.5rem;
+		border-radius: 8px;
+	}
+
+	.instructions code {
+		font-size: 0.8em;
+		font-weight: bold;
+		background: rgba(var(--accent-light), 12%);
+		color: rgb(var(--accent-light));
+		border-radius: 4px;
+		padding: 0.3em 0.4em;
+	}
+
+	.instructions strong {
+		color: rgb(var(--accent-light));
+	}
+
+	.link-card-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+		gap: 2rem;
+		padding: 0;
+	}
+</style>
