@@ -41,7 +41,7 @@ import { Icon } from 'astro-icon/components';
 		</Flex>
 	</Flex>
 	<div class='ferris'>
-		<Flex direction='column' align='center' gap={0}>
+		<Flex direction='column' align='center' gap={0} style={{ opacity: 0 }}>
 			<p style={{ margin: 0 }}>Say Hi</p>
 			<Icon name='tabler:chevron-down' size={16} />
 		</Flex>
@@ -185,7 +185,7 @@ import { Icon } from 'astro-icon/components';
 
 			@media (prefers-reduced-motion: no-preference) {
 				animation:
-					peek-text 2s ease-in-out 0.5s 1 alternate,
+					peek-text 2s ease-in-out 0.5s 1 alternate forwards,
 					bob-text 1s ease-in-out 3s infinite alternate;
 			}
 
