@@ -1,5 +1,5 @@
 ---
-import type { HTMLTag, Polymorphic, CSSProperty } from 'astro/types';
+import type { HTMLTag, Polymorphic } from 'astro/types';
 
 type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
 	align?: 'center' | 'flex-start' | 'flex-end';
@@ -9,34 +9,48 @@ type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
 	noWrap?: boolean;
 };
 
-const { as: Tag = 'div', class: className, style, ...props } = Astro.props as Props<HTMLTag>;
+const {
+	as: Tag = 'div',
+	class: className,
+	style,
+	align,
+	justify,
+	direction,
+	noWrap,
+	gap,
+	...props
+} = Astro.props as Props<HTMLTag>;
 const propStyles: astroHTML.JSX.CSSProperties = {};
 
-if (props.align) {
-	propStyles.alignItems = props.align;
+if (align) {
+	propStyles.alignItems = align;
 }
 
-if (props.justify) {
-	propStyles.justifyContent = props.justify;
+if (justify) {
+	propStyles.justifyContent = justify;
 }
 
-if (props.direction) {
-	propStyles.flexDirection = props.direction;
+if (direction) {
+	propStyles.flexDirection = direction;
 }
 
-if (props.noWrap) {
+if (noWrap) {
 	propStyles.flexWrap = 'nowrap';
 }
 
-if (props.gap) {
-	propStyles.gap = props.gap;
+if (gap) {
+	propStyles.gap = gap;
 }
 ---
 
 <style>
-	.root {
+	.flex-root {
 		display: flex;
 		flex-flow: wrap;
 	}
 </style>
-<Tag {...(props as any)} style={{ ...(style as any), ...propStyles }} class:list={['root', className]}><slot /></Tag>
+<Tag
+	{...props as any}
+	style={{ ...(style as any), ...propStyles }}
+	class:list={['flex-root', className]}><slot /></Tag
+>

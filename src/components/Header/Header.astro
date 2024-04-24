@@ -1,0 +1,133 @@
+---
+import Flex from '../Flex.astro';
+import NavLink from './NavLink.astro';
+---
+
+<style>
+	.root {
+		display: flex;
+		align-items: center;
+		width: 100%;
+		position: fixed;
+		height: 60px;
+		top: 0;
+		padding: 0 1rem;
+
+		background-color: light-dark(rgb(var(--paper-light)), rgb(var(--paper-dark)));
+		box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.3);
+		z-index: 1;
+
+		& h3 {
+			background-image: linear-gradient(
+				45deg,
+				rgb(var(--primary-dark)),
+				rgb(var(--primary-light))
+			);
+			background-color: rgb(var(--primary-light));
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-size: 100%;
+			background-position: 0%;
+		}
+	}
+
+	.nav {
+		display: flex;
+		flex-grow: 1;
+		justify-content: center;
+		gap: 1rem;
+	}
+
+	.toggle-wrapper {
+		display: none;
+	}
+
+	.nav-toggle {
+		display: none;
+	}
+
+	@media only screen and (max-width: 600px) {
+		.nav {
+			display: none;
+			flex-direction: column;
+			position: fixed;
+			top: 60px;
+			left: 0;
+			right: 0;
+			gap: 0;
+			background-color: light-dark(rgb(var(--paper-light)), rgb(var(--paper-dark)));
+			box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.1);
+
+			& a {
+				border-radius: 0 !important;
+			}
+		}
+
+		.nav[data-opened] {
+			display: flex;
+		}
+
+		.toggle-wrapper {
+			display: flex;
+			flex-grow: 1;
+			justify-content: center;
+		}
+
+		.nav-toggle {
+			display: block;
+			border: 0;
+			background-color: transparent;
+			fill: light-dark(black, white);
+			cursor: pointer;
+		}
+	}
+</style>
+<header id='header' class='root'>
+	<Flex direction='row' gap='0.5rem' align='center'>
+		<img src='/favicon.svg' height='24' />
+		<h3>SOAR</h3>
+	</Flex>
+	<div class='toggle-wrapper'>
+		<button id='nav-toggle' class='nav-toggle' aria-label='Toggle Navigation'>
+			<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'
+				><path d='M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z'></path></svg
+			>
+		</button>
+	</div>
+	<nav id='nav' class='nav'>
+		<NavLink href='/' label='Home' />
+	</nav>
+</header>
+<script>
+	(() => {
+		const nav = document.getElementById('nav') as HTMLElement;
+		const header = document.getElementById('header') as HTMLElement;
+		const toggle = document.getElementById('nav-toggle') as HTMLButtonElement;
+
+		const setupMenu = (nav: HTMLElement, toggle: HTMLButtonElement) => {
+			toggle.addEventListener('click', () => {
+				if (nav.dataset.opened) {
+					delete nav.dataset.opened;
+					header.style.boxShadow = '';
+				} else {
+					nav.dataset.opened = 'true';
+					header.style.boxShadow = 'none';
+				}
+			});
+		};
+
+		// close menu if a click ocurred outside of it
+		window.addEventListener('click', (e) => {
+			const nav = document.getElementById('nav') as HTMLElement;
+			const toggle = document.getElementById('nav-toggle') as HTMLButtonElement;
+			const opened = nav.dataset.opened;
+
+			// @ts-expect-error
+			if (opened && !toggle.contains(e.target) && !nav.contains(e.target)) {
+				delete nav.dataset.opened;
+			}
+		});
+
+		setupMenu(nav, toggle);
+	})();
+</script>

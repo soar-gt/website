@@ -1,5 +1,6 @@
 ---
-import Footer from './Footer.astro';
+import Header from '@/components/Header/Header.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
 	title: string;
@@ -19,7 +20,10 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
-		<slot />
+		<Header />
+		<main>
+			<slot />
+		</main>
 		<Footer />
 	</body>
 </html>
@@ -27,20 +31,26 @@ const { title } = Astro.props;
 	:root {
 		color-scheme: dark light;
 
-		--bg-light: 255, 255, 255;
-		--bg-dark: 0, 0, 0;
+		--bg-light: 255, 248, 242;
+		--bg-dark: 41, 40, 40;
+
+		--paper-light: 255, 255, 255;
+		--paper-dark: 40, 40, 40;
 
 		--text-light: 0, 0, 0;
 		--text-dark: 255, 255, 255;
 
-		--link-light: 0, 0, 255;
-		--link-dark: 0, 0, 255;
+		--link: 247, 95, 49;
+		--link-hover: 227, 60, 38;
 
 		--primary-light: 247, 95, 49;
 		--primary-dark: 227, 60, 38;
 
-		--sky-light: 0, 208, 255;
-		--sky-dark: 34, 0, 120;
+		--radius: 8px;
+		--spacing-sm: 0.25rem;
+		--spacing-md: 0.5rem;
+		--spacing-lg: 0.75rem;
+		--spacing-xl: 1rem;
 	}
 
 	:root[data-theme='light'] {
@@ -53,6 +63,7 @@ const { title } = Astro.props;
 
 	:root {
 		font-family: system-ui, sans-serif;
+		color: light-dark(rgb(var(--text-light)), rgb(var(--text-dark)));
 		background: light-dark(rgb(var(--bg-light)), rgb(var(--bg-dark)));
 	}
 
@@ -61,15 +72,20 @@ const { title } = Astro.props;
 		flex-direction: column;
 		margin: 0;
 		min-height: 100vh;
-		color: light-dark(rgb(var(--text-light)), rgb(var(--text-dark)))
+		color: light-dark(rgb(var(--text-light)), rgb(var(--text-dark)));
+	}
+
+	main {
+		padding-top: 3rem;
 	}
 
 	a {
-		color: light-dark(rgb(var(--link-light)), rgb(var(--link-dark)));
+		color: rgb(var(--link));
+		transition: color 0.3s ease;
 		text-decoration: none;
 
-		&:visited {
-
+		&:hover {
+			color: rgb(var(--link-hover));
 		}
 	}
 
